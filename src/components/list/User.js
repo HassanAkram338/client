@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify"
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import { ThreeDots } from 'react-loader-spinner'
-import { useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import "./User.css"
 import "../form/Form"
-import { Navigate } from 'react-router-dom';
 
 
 
 const User = () => {
 
+
   const navigate = useNavigate()
   const [isLoading, setIsLoading] = useState(true)
   const [documents, setDocuments] = useState([]);
   const [state, setState] = useState({});
-  
+
   const URL = "http://localhost:8000";
 
 
@@ -25,9 +25,9 @@ const User = () => {
   const handleUpdate = (doc) => {
     console.log(doc);
     // navigate("/addUser");
-    const {name,age,userName} = state
+    const { name, age, userName } = state
 
-    let newData = { id: doc._id, name,age,userName};
+    let newData = { id: doc._id, name, age, userName };
 
 
     axios.put(`${URL}/updateUser`, newData)
@@ -42,7 +42,7 @@ const User = () => {
           draggable: true,
           progress: undefined,
         });
-              
+
       })
       .catch(err => {
 
@@ -56,20 +56,24 @@ const User = () => {
           progress: undefined,
         });
       })
+      // .finally(() => {
+      //   setState({})
+      // })
   };
 
-const handleUpdateSubmission = (e) => {
-      e.preventDefault();
+  const handleUpdateSubmission = (e) => {
+    e.preventDefault();
+    setState(...state)
 
-};
+  };
 
-const handleUpdateChange = (e) => {
-     const name = e.target.name;
-     const value = e.target.value;
+  const handleUpdateChange = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
 
-     setState((s)=>({...s,[name] : value}));
+    setState((s) => ({ ...s, [name]: value }));
 
-}
+  }
 
 
   const handleDelete = (doc) => {
@@ -132,7 +136,7 @@ const handleUpdateChange = (e) => {
         console.error(err)
       })
 
-  }, []);
+  }, [documents]);
 
   return (
     <>
@@ -149,10 +153,10 @@ const handleUpdateChange = (e) => {
         </div> :
         <>
 
-          <div className="container">
+          <div className="container offset-lg-2">
             <div className="row">
               <div className="col m-5">
-                <table className="table text-dark mt-3 table-sm w-75">
+                <table className="table  text-dark mt-3 table-sm w-75">
                   <thead>
                     <tr className='text-center'>
                       <th>Name</th>
@@ -175,31 +179,37 @@ const handleUpdateChange = (e) => {
 
 
                             {/* Update Modal     */}
-                            <button type="button" class="btn text-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <button type="button" className="btn text-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
                               <i className="fa-solid fa-pen"></i>
                             </button>
 
 
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                              <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Update</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div className="modal-dialog modal-dialog-centered">
+                                <div className="modal-content">
+                                  <div className="modal-header">
+                                    <h5 className="modal-title" id="exampleModalLabel">Update</h5>
+                                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                   </div>
-                                  <div class="modal-body">
-                                  <form onSubmit={handleUpdateSubmission} className = "text-center">
-                                      <label className='me-3'>Name</label>
-                                      <input type="text" className='form-control'  name="name" placeholder='Name' onChange={handleUpdateChange} required/> 
-                                      <label className='me-4 '>Age</label>
-                                      <input type="number" name="age" placeholder='Age' className='form-control' onChange={handleUpdateChange} required/> 
-                                      <label className='me-1'>User Name</label>
-                                      <input type="text" className='form-control ' name="userName" placeholder='User Name' onChange={handleUpdateChange}  required/> 
-                                    </form> 
+                                  <div className="modal-body">
+                                    <form onSubmit={handleUpdateSubmission} >
+                                      <div className="mb-3">
+                                        <p className='text-start mb-2'>Name</p>
+                                        <input type="text" className="form-control" name='name' onChange={handleUpdateChange} placeholder="Name" required />
+                                      </div>
+                                      <div className="mb-3">
+                                        <p className='text-start mb-2'>Age</p>
+                                        <input type="number" className="form-control" name='age' onChange={handleUpdateChange} placeholder="Age" required />
+                                      </div>
+                                      <div className="mb-3">
+                                        <p className='text-start mb-2'> User Name</p>
+                                        <input type="text" className="form-control" name='userName' onChange={handleUpdateChange} placeholder="User Name" required />
+                                      </div>
+                                    </form>
                                   </div>
-                                  <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onClick={()=>{handleUpdate(doc)}}>Update</button>
+                                  <div className="modal-footer">
+                                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                    <button type="button" className="btn btn-success" data-bs-dismiss="modal" onClick={() => { handleUpdate(doc) }}>Update</button>
                                   </div>
                                 </div>
                               </div>

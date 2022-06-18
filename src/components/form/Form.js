@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
-import "../form/Form.css"
+import "../form/Form.css";
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css"
 import User from '../list/User';
 
@@ -73,32 +73,64 @@ const Form = () => {
   return (
     <>
 
-      <center>
-        <div className="container-1">
-          <header>
-            <h1 className='text-white' >INFORMATION</h1>
-          </header>
-          <hr className="line" />
-          <main>
-            <section>
-              <form onSubmit={handleSubmit}>
-                <label    >Name</label>
-                <input type="text" name="name" id="name-field" className="form-control" placeholder="Enter your name" onChange={handleChange} required />
-                <br />
-                <label >Age</label>
-                <input type="text" name="age" id="password-field" className='form-control' placeholder="Enter your age" onChange={handleChange} required />
-                <br />
-                <label  >User Name</label>
-                <input type="text" name="userName" id="password-field" className='form-control' placeholder="Enter your username" onChange={handleChange} required />
-                <br />
-                <input type="submit" value="Add User" className="login-button mx-auto mb-4" />
-              </form>
-              {/* <div className="btn btn-primary m-3" onClick={() => { navigate("/") }}>  Home</div> */}
+<section className="wrapper d-flex justify-content-center align-items-center">
+        <div className="container ps-lg-5 ">
+          <div className="col-sm-8 offset-sm-2 col-lg-6 offset-lg-4 col-xl-4 offset-xll-4 text-center">
+            <h1 className="text-center mt-5 fw-bold mb-3">Add User</h1>
 
-            </section>
-          </main>
+            <form onSubmit={handleSubmit} name="suForm" className="rounded bg-white shadow p-5 mt-5">
+              {/* <h3 className="text-dark fw-bolder fs-4 mb-2">Fill all Fields</h3> */}
+              <div className="form-floating mb-3">
+                <input
+                  type="text"
+                  name="name"
+                  className="form-control"
+                  id="floatingLastName"
+                  placeholder="Name"
+                  required onChange={handleChange}
+                />
+                <label for="floatingLastName"> Name</label>
+              </div>
+
+              <div className="form-floating mb-3">
+                <input
+                  type="number"
+                  name="age"
+                  className="form-control"
+                  id="floatingInput"
+                  placeholder="Age"
+                  required onChange={handleChange}
+                />
+                <label for="floatingInput">Age</label>
+              </div>
+
+              <div className="form-floating mb-3">
+                <input
+                  type="text"
+                  name="userName"
+                  className="form-control"
+                  id="floatingPassword"
+                  placeholder="User Name"
+                  required onChange={handleChange}
+                />
+                <label for="floatingPassword">User Name</label>
+              </div>
+
+              <button
+                type="submit"
+                className="btn btn-success submit_btn w-75 my-3"
+              >
+                {/* <i className="fas fa-user-plus p-2"></i> */}
+                ADD USER
+              </button>
+            
+                
+
+            </form>
+          </div>
         </div>
-      </center>
+      </section>
+              {/* </span> */}
     </>
 
 
@@ -108,13 +140,3 @@ const Form = () => {
 export default Form
 
 
-
-
-// <form onSubmit={handleUpdateSubmission}>
-// <label className='me-3'>Name</label>
-// <input type="text" className=''  name="name" placeholder='Name' onChange={handleUpdateChange} required/> <br /><br />
-// <label className='me-4 '>Age</label>
-// <input type="number" name="age" placeholder='Age' onChange={handleUpdateChange} required/> <br /> <br />
-// <label className='me-1'>User Name</label>
-// <input type="text" className='' name="userName" placeholder='User Name' onChange={handleUpdateChange}  required/> <br /> <br />
-// </form> 
